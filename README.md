@@ -7,7 +7,7 @@ Connecting businesses and people with great ideas during a time of need.
 1. Install Docker
 2. Make sure Docker is running on your machine.
 3. Go to the root directory of the repository (where the .yml files are)
-3. Run docker-compose -f docker-compose.prod.yml logs -f
+3. Run `docker-compose -f docker-compose.prod.yml logs -f`
 
 Now docker will install python, postgresql etc in a container and then start the django webserver and the database.
 The django webserver will be available at http://127.0.0.1:8000/ 
