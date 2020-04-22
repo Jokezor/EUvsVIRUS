@@ -4,7 +4,7 @@ Connecting businesses and people with great ideas during a time of need.
 # Now everything will run inside docker to handle ease of use with different packages and scalability
 
 ## To run Django Webserver
-1. Install Docker
+1. Install Docker: https://docs.docker.com/get-docker/
 2. Make sure Docker is running on your machine.
 3. Go to the root directory of the repository (where the .yml files are)
 3. Run `docker-compose -f docker-compose.prod.yml logs -f`
