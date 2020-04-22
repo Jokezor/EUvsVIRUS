@@ -1,0 +1,14 @@
+[
+	{
+		"id": "html",
+		"knowledge": "HTML"
+	},
+	{
+		"id": "css",
+		"knowledge": "CSS"
+	},
+	{
+		"id": "js",
+		"knowledge": "JS"
+	}
+]
