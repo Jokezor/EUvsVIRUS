@@ -1,19 +1,29 @@
 from django.db import models
-from django.contrib.gis.db import models as gis_models
+#from django.contrib.gis.db import models as gis_models
+from django.contrib.gis.db import models as geomodels
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from .managers import MyUserManager
 
+class City(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    geometry = geomodels.PointField()
+
+    class Meta:
+        # order of drop-down list items
+        ordering = ('name',)
+
+        # plural form in admin view
+        verbose_name_plural = 'cities'
+
 class User(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(unique=True, null=True)
 	first_name = models.CharField(max_length=200)
 	last_name = models.CharField(max_length=200)
-	city = models.CharField(max_length=200)
-	want_to_be_matched = models.IntegerField(default=0)
+	location = models.ForeignKey(City, on_delete=models.CASCADE)
 
-	# uses django gis
-	#gps_location = gis_models.PointField()
+	want_to_be_matched = models.IntegerField(default=0)
 
 	is_staff = models.BooleanField(
 		_('staff status'),
