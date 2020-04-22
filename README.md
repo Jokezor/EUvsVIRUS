@@ -14,31 +14,31 @@ The django webserver will be available at http://127.0.0.1:8000/
 
 ## Handy commands to run things with the created containers
 #### stop all containers:
-docker kill $(docker ps -q)
+`docker kill $(docker ps -q)`
 
 #### remove all containers
-docker rm $(docker ps -a -q)
+`docker rm $(docker ps -a -q)`
 
 #### remove all docker images
-docker rmi $(docker images -q)
+`docker rmi $(docker images -q)`
 
 #### remove all docker volumes
-docker volume ls -qf dangling=true | xargs  docker volume rm
+`docker volume ls -qf dangling=true | xargs  docker volume rm`
 
 #### For docker to rebuild:
-docker-compose -f docker-compose.yml up --build -d
+`docker-compose -f docker-compose.yml up --build -d`
  
 #### See error messages in building container:
-docker-compose logs -f
+`docker-compose logs -f`
 
 #### Can also specify the yml file
-docker-compose -f docker-compose.prod.yml logs -f
+`docker-compose -f docker-compose.prod.yml logs -f`
 
 #### Inspect a volume created
-docker volume inspect django-on-docker_postgres_data
+`docker volume inspect django-on-docker_postgres_data`
 
 #### Access database
-docker-compose exec db psql --username=hello_django --dbname=hello_django_dev
+`docker-compose exec db psql --username=hello_django --dbname=hello_django_dev`
 
 #### to run python scripts:
-docker-compose exec web python3 manage.py createsuperuser
+`docker-compose exec web python3 manage.py createsuperuser`
