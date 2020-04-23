@@ -14,7 +14,7 @@ The django webserver will be available at http://127.0.0.1:8000/
 
 ## Handy commands to run things with the created containers
 # See all running containers
-Docker ps
+`docker ps`
 
 # login to container, get processing_id from docker ps
 docker exec -t -i  <processing_id> bash
@@ -47,4 +47,7 @@ docker exec -t -i  <processing_id> bash
 `docker-compose exec db psql --username=hello_django --dbname=hello_django_dev`
 
 #### to run python scripts:
-`docker-compose exec web python3 manage.py createsuperuser`
+`docker-compose exec web python manage.py createsuperuser`
+
+#### Conversion from .shp file to postGIS table
+`docker-compose exec web ogr2ogr -f "PostgreSQL" PG:"dbname=hello_django_dev user=hello_django password=hello_django" ne_10m_populated_places.shp -nln City -append`
