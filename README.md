@@ -13,6 +13,12 @@ Now docker will install python, postgresql etc in a container and then start the
 The django webserver will be available at http://127.0.0.1:8000/ 
 
 ## Handy commands to run things with the created containers
+# See all running containers
+Docker ps
+
+# login to container, get processing_id from docker ps
+docker exec -t -i  <processing_id> bash
+
 #### stop all containers:
 `docker kill $(docker ps -q)`
 
