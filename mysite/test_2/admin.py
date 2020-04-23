@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.gis.admin import OSMGeoAdmin
-from .models import Test, User, Passions, Assigned_Skills, Business_Experience, Up_For, Collaboration, Colab_Passions, Colab_Assigned_Skills, Colab_Business_Experience, Colab_Up_For, Skills
+from .models import City, User, Passions, Assigned_Skills, Business_Experience, Up_For, Collaboration, Colab_Passions, Colab_Assigned_Skills, Colab_Business_Experience, Colab_Up_For, Skills
 
 
 #@admin.register(User)
@@ -9,10 +9,12 @@ from .models import Test, User, Passions, Assigned_Skills, Business_Experience, 
 
 
 # Register your models here.
-admin.site.register(Test)
 
 # User table
 admin.site.register(User)
+
+# City table
+admin.site.register(City)
 
 # Skilled people tables
 admin.site.register(Passions)

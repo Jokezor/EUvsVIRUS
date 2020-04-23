@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Test, User, Passions
+from .models import User, Passions
 from django.http import HttpResponse
 from django.template import loader
 
 
 def index(request):
-	tests = Test.objects.count()
+	#tests = Test.objects.count()
 	template = loader.get_template('index.html')
 	#user=User.objects.all()
 	#passion=Passions.objects.all()
@@ -20,15 +20,15 @@ def index(request):
 	return HttpResponse(template.render(context, request))
 
 def test_view_2(request):
-	tests = Test.objects.count()
+
 	template = loader.get_template('test_view_2.html')
-	context = {
-	    'tests': tests,
-	}
+	context = {}
+	
 	return HttpResponse(template.render(context, request))
 
 
 def test_view(request):
-    tests = Test.objects.count()
+    #tests = Test.objects.count()
+    tests = 0
     return HttpResponse("Det finns {} tests.".format(tests))
 # Create your views here.

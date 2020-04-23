@@ -2,7 +2,7 @@
 FROM python:3.8.2
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/mysite
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y netcat
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements.txt /usr/src/mysite/requirements.txt
 RUN pip install -r requirements.txt
 
 # Install gdal for geodjango
@@ -30,13 +30,14 @@ RUN apt-get update &&\
 RUN apt-get update && apt-get install -y qgis-server python-qgis
 
 # copy the shapefile for the cities around the world
-COPY ./ne_10m_populated_places.shp ne_10m_populated_places/ne_10m_populated_places.shp
+COPY ./ne_10m_populated_places.shp  /usr/src/mysite/ne_10m_populated_places.shp
+COPY ./ne_10m_populated_places.shx  /usr/src/mysite/ne_10m_populated_places.shx
 
 # copy entrypoint.sh
-COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+COPY ./entrypoint.sh /usr/src/mysite/entrypoint.sh
 
 # copy project
-COPY . /usr/src/app/
+COPY . /usr/src/mysite/
 
 # run entrypoint.sh
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/mysite/entrypoint.sh"]

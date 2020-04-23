@@ -16,12 +16,13 @@ class City(models.Model):
 
         # plural form in admin view
         verbose_name_plural = 'cities'
+        
 
 class User(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(unique=True, null=True)
 	first_name = models.CharField(max_length=200)
 	last_name = models.CharField(max_length=200)
-	location = models.ForeignKey(City, on_delete=models.CASCADE)
+	location = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
 
 	want_to_be_matched = models.IntegerField(default=0)
 
@@ -47,14 +48,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 	def get_short_name(self):
 		return self.email
 
+
 class Skills(models.Model):
 	skill = models.CharField(max_length=200)
 	group = models.CharField(max_length=200, default='None')
 
-# Can remove this one
-class Test(models.Model):
-    text = models.CharField(max_length=200)
-    num = models.IntegerField(default=0)
 
 class Passions(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
