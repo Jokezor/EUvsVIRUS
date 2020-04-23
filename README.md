@@ -18,7 +18,7 @@ The django webserver will be available at http://127.0.0.1:8000/
 `docker ps`
 
 #### login to container, get processing_id from docker ps
-docker exec -t -i  <processing_id> bash
+`docker exec -t -i  <processing_id> bash`
 
 #### stop all containers:
 `docker kill $(docker ps -q)`
