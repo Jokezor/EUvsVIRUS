@@ -1,4 +1,4 @@
-from test_2.models import User, Passions
+from test_2.models import City, User, Passions, Assigned_Skills, Business_Experience, Up_For, Collaboration, Colab_Passions, Colab_Assigned_Skills, Colab_Business_Experience, Colab_Up_For, Skills
 from datetime import datetime
 import random
 from collections import Counter

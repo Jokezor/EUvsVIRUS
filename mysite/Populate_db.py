@@ -1,11 +1,11 @@
-from test_2.models import *
+from test_2.models import City, User, Passions, Assigned_Skills, Business_Experience, Up_For, Collaboration, Colab_Passions, Colab_Assigned_Skills, Colab_Business_Experience, Colab_Up_For, Skills
 from datetime import datetime
 import random
 from collections import Counter
 import csv
 
 # Base path where we have the files
-base_path = '/Users/jo/Documents/Our-Connected-Future/mysite/'
+base_path = ''
 
 def read_csv(file):
 	full_path = base_path + file
@@ -60,7 +60,7 @@ def populate_users(N, first_names, last_names, cities, ratio_match):
 				checked_emails[email] = 1
 				get_name = 0
 
-		User.objects.create(email = email, password = passwrd, first_name = first_name, last_name = last_name, city = city, want_to_be_matched = want_to_be_matched)
+		User.objects.create(email = email, password = passwrd, first_name = first_name, last_name = last_name, want_to_be_matched = want_to_be_matched)
 
 def populate_Passions(M):
 	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
@@ -104,24 +104,29 @@ def populate_Up_For(M):
 
 
 def populate_Collaboration(C, ratio_colabs, cities):
-	users = User.objects.filter(want_to_be_matched = 0, is_staff = False)
 
-	checked_users = {}
+	colab_users = User.objects.filter(want_to_be_matched = 0, is_staff = False)
+
+	checked_users = []
 
 	# max users who will be colabs
-	max_users = ratio_colabs*len(users)
-
-	colab_users = []
+	max_users = ratio_colabs*len(colab_users)
 
 	for ind in range(0, max_users):
-		temp_usr = users[random.randint(0,len(users))]
-		checked_users[temp_usr] = 1
 
-		colab_users.append(temp_usr)
+		usr_not_checked = 1
+		while(usr_not_checked):
+			temp_usr = colab_users[random.randint(0,len(colab_users))]
+
+			if temp_usr not in checked_users:
+				checked_users.append(temp_usr)
+				usr_not_checked = 0
+
+		
 	
-	#for usr in colab_users:
-
-		#Collaboration.objects.create(user = usr, )
+	for usr in colab_users:
+		title = 
+		Collaboration.objects.create(user = usr, )
 
 		
 
@@ -132,10 +137,15 @@ def populate():
 	first_names = read_file('first_names.all.txt')
 	last_names = read_file('last_names.all.txt')
 	cities = read_csv('world-cities.csv')
-		
+	with open('/Users/jo/Documents/Docker/Webserver/mysite/titles.json') as f:
+	    colab_data = json.load(f)
+	colab_data = colab_data['titles']
+
 	# First check so all skills are in db.
-	
-	populate_skills(skills)
+	#print("heeewyeyweyweywaeywyeaw")
+
+	#populate_skills(skills)
+
 
 	# Number of candidates to generate
 	N = 100
@@ -150,13 +160,13 @@ def populate():
 	ratio_colabs = 0.8
 
 	# Create N users
-	populate_users(N, first_names, last_names, cities, ratio_match)
+	#populate_users(N, first_names, last_names, cities, ratio_match)
 
 	# populate all the data needed from people who want to be matched
-	populate_Passions(M)
-	populate_Assigned_Skills(M)
-	populate_Business_Experience(M)
-	populate_Up_For(M)
+	#populate_Passions(M)
+	#populate_Assigned_Skills(M)
+	#populate_Business_Experience(M)
+	#populate_Up_For(M)
 
 	# Create collaborations
 	#populate_Collaboration(ratio_colabs, cities)

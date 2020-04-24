@@ -8,6 +8,9 @@ WORKDIR /usr/src/mysite
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# To have same settings
+ENV DJANGO_SETTINGS_MODULE mysite.settings
+
 # Install netcat which is used in entrypoint.sh with command: nc
 RUN apt-get update && apt-get install -y netcat
 

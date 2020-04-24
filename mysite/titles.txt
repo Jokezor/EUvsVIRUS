@@ -1,0 +1,36 @@
+{
+	"titles": {
+		"Awesome loanservice": {
+			"description": "Looking for awesome people for the next big loan service to lend people money based on their looks."
+		},
+		"Delivery service": {
+			"description": "Delivering but we open the packages first and take a fraction that we sell."
+		},
+		"Dating without borders idea": {
+			"description": "Dating internationally between countries to enable long distance relationships. We will battle depression during these quarantine times."
+		},
+		"Heated cups startup": {
+			"description": "What is life without some warmth? With our service customers can enjoy their coffee warm all day."
+		},
+
+
+		"Movers needed to create the next big mover": {
+			"description": "Looking for strong movers to help people get moving."
+		},
+		"Perfect coffee every time": {
+			"description": "Looking for people with experience in marketing to help me take these amazing beans and coffee maker globally."
+		},
+		"Teamakers remotified": {
+			"description": "Teamaking is an art. We will teach how people can make their own tea from household items."
+		},
+		"VOI but for baby strollers": {
+			"description": "A baby stroller can be expensive and take up a lot of space. What we will offer is baby strollers that you can pick up where you want and leave where you want."
+		},
+		"Tinder but with social distancing": {
+			"description": "What is life without some tinder? Now you can tinder and match with people to have dinners but from home."
+		},
+		"Awesome idea!": {
+			"description": "We have an awesome idea which will make everyone's life so awesome!"
+		},
+	}
+}
