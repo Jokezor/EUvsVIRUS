@@ -7,9 +7,13 @@ from django.template import loader
 def index(request):
 	#tests = Test.objects.count()
 	template = loader.get_template('index.html')
-	#user=User.objects.all()
+
+	
+	user=User.objects.all()
 	#passion=Passions.objects.all()
-	context = {'user': 'joakim'}
+	context = {
+		'user': user
+	}
 	#context = {
 	#    'user': user, 
 	#    'passion': passion,

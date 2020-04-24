@@ -1,0 +1,277 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="generator" content="Lightweight">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-title" content="Our connected future">
+
+		<title>Our connected future</title>
+
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+		<link rel="stylesheet" href="//raw.githubusercontent.com/Ha006/lightweight/master/css/reset.css">
+		<link rel="stylesheet" href="/static/colors.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700|Montserrat:400,700|Lato:400,700|Raleway|Roboto|Homenaje|Oswald|Codystar|Geostar|Press+Start+2P|Audiowide|Wallpoet">
+		<style>
+			p {
+				letter-spacing: 1.5px;
+				line-height: 2.5;
+				margin: 5% auto 5%;
+				text-align: center;
+				width: 60%;
+			}
+			hr {
+				border: 0;
+				border-bottom: 2px solid var(--black);
+				margin: 0;
+				margin-bottom: 1em;
+			}
+			input {
+				border-radius: 5px;
+				border: 0;
+				display: block;
+				font-size: inherit;
+				margin: 0 0 1em;
+				padding: 0.5em;
+				width: 100%;
+			}
+			.buttons {
+				margin: 0;
+				padding: 0;
+			}
+			.buttons li {
+				display: inline-block;
+			}
+			.buttons a, button {
+				background: rgba(34, 34, 34, 0.5);
+				border: 2px solid rgba(34, 34, 34, 0.5);
+				border-radius: 3px;
+				color: #fff;
+				cursor: pointer;
+				display: inline-block;
+				font: inherit;
+				margin: 0 .5em .5em 0;
+				padding: 4px 9px;
+				text-transform: uppercase;
+				user-select: none;
+			}
+			.buttons a:hover {
+				text-decoration: none;
+			}
+			i {
+				margin-right: 0.5em;
+			}
+			::selection {
+				background: rgba(80, 116, 134, 0.8);
+				color: #fff;
+			}
+
+			body {
+				background: #fff;
+				color: #403E3B;
+				font-family: sans-serif;
+				font-size: 16px;
+				margin: 0;
+				overflow-y: scroll;
+			}
+
+			#wrapper {
+				display: flex;
+				margin: 0 auto;
+				/*
+				max-width: 960px;
+				width: 80%;
+				*/
+			}
+			section {
+				flex: 1;
+			}
+			section article button {
+				display: none;
+			}
+			section:first-child {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+			}
+			section:first-child button {
+				background: var(--black);
+				color: var(--white);
+			}
+			section:last-child {
+				padding: 10%;
+			}
+			section:last-child button {
+				background: var(--green);
+				border: none;
+				color: #fff;
+				font-size: 1.25em;
+				padding: 1em 2em;
+			}
+			section:last-child button:active {
+				background: var(--dark-green);
+			}
+			article {
+				box-sizing: border-box;
+				padding: 1.9%;
+				width: 22%;
+			}
+
+			a {
+				background: rgba(0,0,0,0.5);
+				color: #02819F;
+				text-decoration: none;
+			}
+
+			a:hover {
+				text-decoration: underline;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				text-align: center;
+				margin: 4em 0;
+			}
+
+			.center {
+				align-items: center;
+				display: flex;
+				justify-content: center;
+			}
+
+			.tab:after {
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 8px solid #403E3B;
+				content: "";
+				left: 50%;
+				margin-left: 8px;
+				position: absolute;
+				top: 100%;
+				z-index: 1000;
+			}
+
+			.flex {
+				display: flex;
+				flex-wrap: wrap;
+				list-style: none;
+				padding: 2% 0 0 2%;
+			}
+
+			.flex li {
+				margin: 0 2% 2% 0;
+				width: 18%;
+			}
+
+			.flex li img {
+				cursor: pointer;
+				display: block;
+				transition: 1s transform;
+				width: 100%;
+			}
+
+			.flex li img:hover {
+				transform: scale(1.1);
+			}
+
+			label {
+				display: block;
+				font-weight: bold;
+				font-size: 1em;
+				margin: 0 0 1em;
+			}
+			p + section {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-evenly;
+			}
+			@media (max-width: 960px) {
+				article {
+					/*flex: auto;*/
+					margin-top: 5%;
+					padding: 5%;
+					width: 90%;
+				}
+				
+			}
+			@media (max-width: 640px) {
+				main {
+					flex-flow: column;
+				}
+			}
+		</style>
+
+		<script>
+		xhr = new XMLHttpRequest();
+		xhr.open("GET", '/static/json.json', true);
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				ul = document.getElementsByTagName('ul')[0];
+				JSON.parse(xhr.response).forEach(function(el) {
+					li = document.createElement('li');
+					li.id = el.id;
+					a = document.createElement('a');
+					i = document.createElement('i');
+					i.classList.add('fa');
+					i.classList.add('fa-user');
+					a.append(i);
+					text = document.createTextNode(el.knowledge);
+					a.append(text);
+					li.append(a);
+					ul.append(li);
+				});
+			} else if (xhr.readyState == 4 && xhr.status == 0) {
+				console.log('Inget internet');
+			}
+		}
+		xhr.send();
+		window.onload = function() {
+			document.querySelectorAll('article input').forEach(function(input) {
+				input.onkeyup = function(event) {
+					if (event.keyCode == 13) {
+						a = document.createElement('a');
+						text = document.createTextNode(event.target.value);
+						i = document.createElement('i');
+						i.classList.add('fa');
+						i.classList.add('fa-user');
+						a.append(i);
+						a.append(text);
+						li.append(a);
+						event.target.value = '';
+						event.target.parentElement.querySelector('.buttons').append(li);
+					}
+				}
+			});
+		}
+		</script>
+
+	</head>
+	<body>
+		<h1>Our connected future</h1>
+		<p>We are looking for an Engineering Manager to join our team at M. As an Engineering Manager you will be part of a small team of managers that support each other to develop a great engineering culture and workplace. Primarily the role will mean support individuals through listening, coaching and helping them grow. You will have an impact when building efficient teams, giving them the means to succeed and help them focus. All while striving to make work a joyful experience. </p>
+		<!--
+		NOTE: example!!!! 
+		{% for users in user %}
+		<p>Namn: {{ users.first_name }} </p>
+		{% for passion2 in users.passions_set.all %}
+    	<p>Passion: {{ passion2.passion }} </p>
+    	{% endfor %}
+		{% endfor %}-->
+		<section id="content">
+			<article style="background: var(--blue)"><label>Passion</label><input type="search" placeholder="Passion"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
+			<article id="add" style="background: var(--green)"><label>Skills</label><input type="search" placeholder="Skills"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
+			<article style="background: var(--red)"><label>Business Experience</label><input type="search" placeholder="Business Experience"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
+			<article style="background: var(--yellow)"><label>Up for</label><input type="search" placeholder="Up for"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
+		</section>
+		<main id="wrapper">
+			<section>
+				<button>Sign up now</button>
+			</section>
+		</main>
+	</body>
+</html>
+

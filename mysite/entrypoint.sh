@@ -14,8 +14,9 @@ fi
 python manage.py flush --no-input
 sleep 1
 python manage.py makemigrations
-sleep1
+sleep 1
 python manage.py migrate test_2
 sleep 2
+python manage.py migrate
 
 exec "$@"

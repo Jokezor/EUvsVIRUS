@@ -1,277 +1,201 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="generator" content="Lightweight">
-
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-title" content="Our connected future">
-
-		<title>Our connected future</title>
-
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
-
-		<link rel="stylesheet" href="//raw.githubusercontent.com/Ha006/lightweight/master/css/reset.css">
-		<link rel="stylesheet" href="/static/colors.css">
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700|Montserrat:400,700|Lato:400,700|Raleway|Roboto|Homenaje|Oswald|Codystar|Geostar|Press+Start+2P|Audiowide|Wallpoet">
-		<style>
-			p {
-				letter-spacing: 1.5px;
-				line-height: 2.5;
-				margin: 5% auto 5%;
-				text-align: center;
-				width: 60%;
-			}
-			hr {
-				border: 0;
-				border-bottom: 2px solid var(--black);
-				margin: 0;
-				margin-bottom: 1em;
-			}
-			input {
-				border-radius: 5px;
-				border: 0;
-				display: block;
-				font-size: inherit;
-				margin: 0 0 1em;
-				padding: 0.5em;
-				width: 100%;
-			}
-			.buttons {
-				margin: 0;
-				padding: 0;
-			}
-			.buttons li {
-				display: inline-block;
-			}
-			.buttons a, button {
-				background: rgba(34, 34, 34, 0.5);
-				border: 2px solid rgba(34, 34, 34, 0.5);
-				border-radius: 3px;
-				color: #fff;
-				cursor: pointer;
-				display: inline-block;
-				font: inherit;
-				margin: 0 .5em .5em 0;
-				padding: 4px 9px;
-				text-transform: uppercase;
-				user-select: none;
-			}
-			.buttons a:hover {
-				text-decoration: none;
-			}
-			i {
-				margin-right: 0.5em;
-			}
-			::selection {
-				background: rgba(80, 116, 134, 0.8);
-				color: #fff;
-			}
-
-			body {
-				background: #fff;
-				color: #403E3B;
-				font-family: sans-serif;
-				font-size: 16px;
-				margin: 0;
-				overflow-y: scroll;
-			}
-
-			#wrapper {
-				display: flex;
-				margin: 0 auto;
-				/*
-				max-width: 960px;
-				width: 80%;
-				*/
-			}
-			section {
-				flex: 1;
-			}
-			section article button {
-				display: none;
-			}
-			section:first-child {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: center;
-			}
-			section:first-child button {
-				background: var(--black);
-				color: var(--white);
-			}
-			section:last-child {
-				padding: 10%;
-			}
-			section:last-child button {
-				background: var(--green);
-				border: none;
-				color: #fff;
-				font-size: 1.25em;
-				padding: 1em 2em;
-			}
-			section:last-child button:active {
-				background: var(--dark-green);
-			}
-			article {
-				box-sizing: border-box;
-				padding: 1.9%;
-				width: 22%;
-			}
-
-			a {
-				background: rgba(0,0,0,0.5);
-				color: #02819F;
-				text-decoration: none;
-			}
-
-			a:hover {
-				text-decoration: underline;
-			}
-
-			h1, h2, h3, h4, h5, h6 {
-				text-align: center;
-				margin: 4em 0;
-			}
-
-			.center {
-				align-items: center;
-				display: flex;
-				justify-content: center;
-			}
-
-			.tab:after {
-				border-left: 8px solid transparent;
-				border-right: 8px solid transparent;
-				border-top: 8px solid #403E3B;
-				content: "";
-				left: 50%;
-				margin-left: 8px;
-				position: absolute;
-				top: 100%;
-				z-index: 1000;
-			}
-
-			.flex {
-				display: flex;
-				flex-wrap: wrap;
-				list-style: none;
-				padding: 2% 0 0 2%;
-			}
-
-			.flex li {
-				margin: 0 2% 2% 0;
-				width: 18%;
-			}
-
-			.flex li img {
-				cursor: pointer;
-				display: block;
-				transition: 1s transform;
-				width: 100%;
-			}
-
-			.flex li img:hover {
-				transform: scale(1.1);
-			}
-
-			label {
-				display: block;
-				font-weight: bold;
-				font-size: 1em;
-				margin: 0 0 1em;
-			}
-			p + section {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-evenly;
-			}
-			@media (max-width: 960px) {
-				article {
-					/*flex: auto;*/
-					margin-top: 5%;
-					padding: 5%;
-					width: 90%;
-				}
-				
-			}
-			@media (max-width: 640px) {
-				main {
-					flex-flow: column;
-				}
-			}
-		</style>
-
-		<script>
-		xhr = new XMLHttpRequest();
-		xhr.open("GET", '/static/json.json', true);
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				ul = document.getElementsByTagName('ul')[0];
-				JSON.parse(xhr.response).forEach(function(el) {
-					li = document.createElement('li');
-					li.id = el.id;
-					a = document.createElement('a');
-					i = document.createElement('i');
-					i.classList.add('fa');
-					i.classList.add('fa-user');
-					a.append(i);
-					text = document.createTextNode(el.knowledge);
-					a.append(text);
-					li.append(a);
-					ul.append(li);
-				});
-			} else if (xhr.readyState == 4 && xhr.status == 0) {
-				console.log('Inget internet');
-			}
-		}
-		xhr.send();
-		window.onload = function() {
-			document.querySelectorAll('article input').forEach(function(input) {
-				input.onkeyup = function(event) {
-					if (event.keyCode == 13) {
-						a = document.createElement('a');
-						text = document.createTextNode(event.target.value);
-						i = document.createElement('i');
-						i.classList.add('fa');
-						i.classList.add('fa-user');
-						a.append(i);
-						a.append(text);
-						li.append(a);
-						event.target.value = '';
-						event.target.parentElement.querySelector('.buttons').append(li);
-					}
-				}
-			});
-		}
-		</script>
-
-	</head>
-	<body>
-		<h1>Our connected future</h1>
-		<p>We are looking for an Engineering Manager to join our team at M. As an Engineering Manager you will be part of a small team of managers that support each other to develop a great engineering culture and workplace. Primarily the role will mean support individuals through listening, coaching and helping them grow. You will have an impact when building efficient teams, giving them the means to succeed and help them focus. All while striving to make work a joyful experience. </p>
-		<!--
-		NOTE: example!!!! 
-		{% for users in user %}
-		<p>Namn: {{ users.first_name }} </p>
-		{% for passion2 in users.passions_set.all %}
-    	<p>Passion: {{ passion2.passion }} </p>
-    	{% endfor %}
-		{% endfor %}-->
-		<section id="content">
-			<article style="background: var(--blue)"><label>Passion</label><input type="search" placeholder="Passion"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
-			<article id="add" style="background: var(--green)"><label>Skills</label><input type="search" placeholder="Skills"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
-			<article style="background: var(--red)"><label>Business Experience</label><input type="search" placeholder="Business Experience"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
-			<article style="background: var(--yellow)"><label>Up for</label><input type="search" placeholder="Up for"><button><i class="fa fa-search"></i>Search</button><ul class="buttons"></ul></article>
-		</section>
-		<main id="wrapper">
-			<section>
-				<button>Sign up now</button>
-			</section>
-		</main>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Creative - Start Bootstrap Theme</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image\x-icon" href="/static/assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- Third party plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">CollabMaker</a><button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">MatchMaker</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Mentorship</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Resource Hub</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-10 align-self-end">
+                        <h1 class="text-uppercase text-white font-weight-bold">Realise your business dream!</h1>
+                        <hr class="divider my-4" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 font-weight-light mb-5">Take the first step in creating your future</p>
+                        <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Find Out More</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- About-->
+        <section class="page-section bg-primary" id="about">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">'Our collaboration is going from strength to strength'</h2>
+                        <hr class="divider light my-4" />
+                        <p class="text-white-50 mb-4">'I matched on CollabMaker and have set up a business making documentaries about exhibitions during the crisis. We're growing as a business and inspiring others!' </p>
+                        <a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services-->
+        <section class="page-section" id="services">
+            <div class="container">
+                <h2 class="text-center mt-0">Enabling you to create your future</h2>
+                <hr class="divider my-4" />
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <i class="fas fa-4x fa-gem text-primary mb-4"></i>
+                            <h3 class="h4 mb-2">Search</h3>
+                            <p class="text-muted mb-0">By skills, interests, experience and what you’re up for</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <i class="fas fa-4x fa-laptop-code text-primary mb-4"></i>
+                            <h3 class="h4 mb-2">Meet</h3>
+                            <p class="text-muted mb-0">Receive, review and meet matches</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <i class="fas fa-4x fa-globe text-primary mb-4"></i>
+                            <h3 class="h4 mb-2">Mentorship</h3>
+                            <p class="text-muted mb-0">Find a mentor</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <i class="fas fa-4x fa-heart text-primary mb-4"></i>
+                            <h3 class="h4 mb-2">Help and guidance</h3>
+                            <p class="text-muted mb-0">To support you from idea to launch and beyond</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio-->
+        <section id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row no-gutters">
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="/static/assets/img/portfolio/fullsize/Camera.jpg"
+                            ><img class="img-fluid" src="/static/assets/img/portfolio/thumbnails/Camera.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="/static/assets/img/portfolio/fullsize/laptop faces.jpg"
+                            ><img class="img-fluid" src="/static/assets/img/portfolio/thumbnails/laptop faces.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="/static/assets/img/portfolio/fullsize/laptop.jpg"
+                            ><img class="img-fluid" src="/static/assets/img/portfolio/thumbnails/laptop.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="/static/assets/img/portfolio/fullsize/podcast.jpg"
+                            ><img class="img-fluid" src="/static/assets/img/portfolio/thumbnails/podcast.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="/static/assets/img/portfolio/fullsize/Peopledesk.jpg"
+                            ><img class="img-fluid" src="/static/assets/img/portfolio/thumbnails/Peopledesk.jpg" alt="" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div></a
+                        >
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="/static/assets/img/portfolio/fullsize/machine.jpg"
+                            ><img class="img-fluid" src="/static/assets/img/portfolio/thumbnails/machine.jpg" alt="" />
+                            <div class="portfolio-box-caption p-3">
+                                <div class="project-category text-white-50">Category</div>
+                                <div class="project-name">Project Name</div>
+                            </div></a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Call to action-->
+        <section class="page-section bg-dark text-white">
+            <div class="container text-center">
+                <h2 class="mb-4">Questions about starting a collaboration</h2>
+                <a class="btn btn-light btn-xl" href="https://startbootstrap.com/themes/creative/">Visit our Resource Hub</a>
+            </div>
+        </section>
+        <!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="mt-0">We can answer your questions</h2>
+                        <hr class="divider my-4" />
+                        <p class="text-muted mb-5">Questions about our service? Get in touch!</p>
+                    </div>
+                </div>
+                    <div class="col-lg-4 mr-auto text-center">
+                        <i class="fas fa-envelope fa-3x mb-3 text-muted"></i
+                        ><!-- Make sure to change the email address in BOTH the anchor text and the link target below!--><a class="d-block" href="mailto:contact@yourwebsite.com">hello@collabmaker.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container"><div class="small text-center text-muted">Copyright © 2020 - Start Bootstrap</div></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="/static/js/scripts.js"></script>
+    </body>
 </html>
-
