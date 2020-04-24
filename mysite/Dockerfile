@@ -30,7 +30,7 @@ RUN apt-get update &&\
     apt-get install -y binutils libproj-dev gdal-bin
 
 # Install QGIS for converting vector shapefiles to PostGIS
-RUN apt-get update && apt-get install -y qgis-server python-qgis
+#RUN apt-get update && apt-get install -y qgis-server python-qgis
 
 # copy the shapefile for the cities around the world
 COPY ./ne_10m_populated_places.shp  /usr/src/mysite/ne_10m_populated_places.shp
