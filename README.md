@@ -1,5 +1,5 @@
 # Our-Connected-Future
-Connecting businesses and people with great ideas during a time of need.
+Connecting collaborators and people with great ideas during a time of need.
 
 # Now everything will run inside docker to handle ease of use with different packages and scalability
 
