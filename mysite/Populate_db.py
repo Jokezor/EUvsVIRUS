@@ -3,6 +3,7 @@ from datetime import datetime
 import random
 from collections import Counter
 import csv
+import json
 
 # Base path where we have the files
 base_path = ''
@@ -62,7 +63,8 @@ def populate_users(N, first_names, last_names, cities, ratio_match):
 
 		User.objects.create(email = email, password = passwrd, first_name = first_name, last_name = last_name, want_to_be_matched = want_to_be_matched)
 
-def populate_Passions(M):
+
+def populate_passions(M):
 	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
 	skills_db = Skills.objects.all()
 
@@ -72,7 +74,7 @@ def populate_Passions(M):
 			passion = skills_db[random.randint(0,len(skills_db)-1)]
 			Passions.objects.create(user=usr, passion=passion)
 
-def populate_Assigned_Skills(M):
+def populate_assigned_skills(M):
 	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
 	skills_db = Skills.objects.all()
 
@@ -82,7 +84,7 @@ def populate_Assigned_Skills(M):
 			Assigned_Skill = skills_db[random.randint(0,len(skills_db)-1)]
 			Assigned_Skills.objects.create(user=usr, assigned_skill=Assigned_Skill)
 
-def populate_Business_Experience(M):
+def populate_business_experience(M):
 	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
 	skills_db = Skills.objects.all()
 
@@ -92,7 +94,7 @@ def populate_Business_Experience(M):
 			experience = skills_db[random.randint(0,len(skills_db)-1)]
 			Business_Experience.objects.create(user=usr, experience=experience)
 
-def populate_Up_For(M):
+def populate_up_for(M):
 	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
 	skills_db = Skills.objects.all()
 
@@ -103,7 +105,92 @@ def populate_Up_For(M):
 			Up_For.objects.create(user=usr, interest=interest)
 
 
-def populate_Collaboration(C, ratio_colabs, cities):
+# Fill data for collaborators
+def populate_collaborator_fields(M):
+	populate_passions(M)
+	populate_assigned_skills(M)
+	populate_business_experience(M)
+	populate_up_for(M)
+
+# create collaborations
+def populate_mockup_collaboration(cities, colab_data):
+
+	colab_users = User.objects.filter(want_to_be_matched = 0, is_staff = False)
+
+	colabs = [] 
+
+	for ind in range(0, len(colab_data)):
+
+		usr_not_checked = 1
+		while(usr_not_checked):
+			temp_usr = colab_users[random.randint(0,len(colab_users)-1)]
+
+			if temp_usr not in colabs:
+				colabs.append(temp_usr)
+				usr_not_checked = 0
+
+	for ind, usr in enumerate(colabs):
+		title = list(colab_data.keys())[ind]
+		description = colab_data[title]['description']
+		city = cities[random.randint(0,len(cities)-1)]
+		Collaboration.objects.create(user = usr, title = title, description = description, city = city)
+
+
+
+
+def populate_fields_collaboration(M):
+	populate_colab_assigned_skills(M)
+	populate_colab_passions(M)
+	populate_colab_business_experience(M)
+	populate_colab_up_for(M)
+
+# collaborations assigned skills
+def populate_colab_assigned_skills(M):
+	colabs = Collaboration.objects.all()
+	skills_db = Skills.objects.all()
+
+	for colab in colabs:
+		while (len(colab.colab_assigned_skills_set.all()) < random.randint(1, M)):
+			assigned_skill = skills_db[random.randint(0,len(skills_db)-1)]
+			Colab_Assigned_Skills.objects.create(colab=colab, assigned_skill=assigned_skill)
+
+# Collaboration passions
+def populate_colab_passions(M):
+	colabs = Collaboration.objects.all()
+	skills_db = Skills.objects.all()
+
+	for colab in colabs:
+		while (len(colab.colab_passions_set.all()) < random.randint(1, M)):
+			passion = skills_db[random.randint(0,len(skills_db)-1)]
+			Colab_Passions.objects.create(colab=colab, passion=passion)
+
+# collaborations business experience
+def populate_colab_business_experience(M):
+	colabs = Collaboration.objects.all()
+	skills_db = Skills.objects.all()
+
+	for colab in colabs:
+		while (len(colab.colab_business_experience_set.all()) < random.randint(1, M)):
+			experience = skills_db[random.randint(0,len(skills_db)-1)]
+			Colab_Business_Experience.objects.create(colab=colab, experience=experience)
+
+# collaborations business experience
+def populate_colab_up_for(M):
+	colabs = Collaboration.objects.all()
+	skills_db = Skills.objects.all()
+
+	for colab in colabs:
+		while (len(colab.colab_up_for_set.all()) < random.randint(1, M)):
+			interest = skills_db[random.randint(0,len(skills_db)-1)]
+			Colab_Up_For.objects.create(colab=colab, interest=interest)
+
+
+
+
+
+
+'''
+def populate_Collaboration(C, ratio_colabs, cities, colab_data):
 
 	colab_users = User.objects.filter(want_to_be_matched = 0, is_staff = False)
 
@@ -124,27 +211,27 @@ def populate_Collaboration(C, ratio_colabs, cities):
 
 		
 	
-	for usr in colab_users:
-		title = 
-		Collaboration.objects.create(user = usr, )
+	for usr in checked_users:
+		#title = 
+		#Collaboration.objects.create(user = usr, )
 
-		
+'''	
 
 
 def populate():
 
-	skills = read_file('skills_new.txt')
+	skills = read_file('skills_test.txt')
 	first_names = read_file('first_names.all.txt')
 	last_names = read_file('last_names.all.txt')
 	cities = read_csv('world-cities.csv')
-	with open('/Users/jo/Documents/Docker/Webserver/mysite/titles.json') as f:
+	with open('titles.json') as f:
 	    colab_data = json.load(f)
 	colab_data = colab_data['titles']
-
+	
 	# First check so all skills are in db.
 	#print("heeewyeyweyweywaeywyeaw")
 
-	#populate_skills(skills)
+	populate_skills(skills)
 
 
 	# Number of candidates to generate
@@ -160,23 +247,24 @@ def populate():
 	ratio_colabs = 0.8
 
 	# Create N users
-	#populate_users(N, first_names, last_names, cities, ratio_match)
+	populate_users(N, first_names, last_names, cities, ratio_match)
 
 	# populate all the data needed from people who want to be matched
-	#populate_Passions(M)
-	#populate_Assigned_Skills(M)
-	#populate_Business_Experience(M)
-	#populate_Up_For(M)
+	populate_collaborator_fields(M)
 
 	# Create collaborations
-	#populate_Collaboration(ratio_colabs, cities)
-
+	populate_mockup_collaboration(cities, colab_data)
+	
 	# populate all the data needed from collaborations to be matched
+	populate_fields_collaboration(M)
 
-	# Number of collaborations to generate
-	#C = 5
-	#for i in range(0, N):
-	#	Collaboration.objects.create(user = usr, title =)
+
+
+	
+	
+	
+
+
 		
 		
 	

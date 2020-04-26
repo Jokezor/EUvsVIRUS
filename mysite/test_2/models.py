@@ -74,6 +74,8 @@ class Up_For(models.Model):
 	interest = models.ForeignKey(Skills, on_delete=models.CASCADE, default='None')
 	interest_free_text = models.CharField(max_length=200, default='None')
 
+
+# Start of collaboration fields (IDEAMAKER)
 class Collaboration(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=200)
@@ -102,9 +104,36 @@ class Colab_Up_For(models.Model):
 	interest = models.ForeignKey(Skills, on_delete=models.CASCADE, default='None')
 	interest_free_text = models.CharField(max_length=200, default='None')
 
+class Passion_Matched(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	colab = models.ForeignKey(Collaboration, on_delete=models.CASCADE)
+	score = models.IntegerField(default=0)
+	weight = models.IntegerField(default=100)
+
+class Assigned_Skills_Matched(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	colab = models.ForeignKey(Collaboration, on_delete=models.CASCADE)
+	score = models.IntegerField(default=0)
+	weight = models.IntegerField(default=100)
+
+class Business_Experience_Matched(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	colab = models.ForeignKey(Collaboration, on_delete=models.CASCADE)
+	score = models.IntegerField(default=0)
+	weight = models.IntegerField(default=100)
+
+class Up_For_Matched(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	colab = models.ForeignKey(Collaboration, on_delete=models.CASCADE)
+	score = models.IntegerField(default=0)
+	weight = models.IntegerField(default=100)
+
 class Matched(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	colab = models.ForeignKey(Collaboration, on_delete=models.CASCADE)
+	score = models.IntegerField(default=0)
+
+
 
 
 

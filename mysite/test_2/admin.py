@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.gis.admin import OSMGeoAdmin
-from .models import City, User, Passions, Assigned_Skills, Business_Experience, Up_For, Collaboration, Colab_Passions, Colab_Assigned_Skills, Colab_Business_Experience, Colab_Up_For, Skills
-
+from .models import *
 
 #@admin.register(User)
 #class ShopAdmin(OSMGeoAdmin):
@@ -29,3 +28,10 @@ admin.site.register(Colab_Assigned_Skills)
 admin.site.register(Colab_Business_Experience)
 admin.site.register(Colab_Up_For)
 admin.site.register(Skills)
+
+# Score tables
+admin.site.register(Passion_Matched)
+admin.site.register(Assigned_Skills_Matched)
+admin.site.register(Business_Experience_Matched)
+admin.site.register(Up_For_Matched)
+admin.site.register(Matched)
