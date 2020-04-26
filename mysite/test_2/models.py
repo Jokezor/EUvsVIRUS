@@ -23,8 +23,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 	first_name = models.CharField(max_length=200)
 	last_name = models.CharField(max_length=200)
 	location = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
-
-	want_to_be_matched = models.IntegerField(default=0)
+	
+	Collaborator = models.BooleanField(default=False)
+	Ideamaker = models.BooleanField(default=False)
 
 	is_staff = models.BooleanField(
 		_('staff status'),

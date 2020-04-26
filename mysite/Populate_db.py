@@ -61,11 +61,14 @@ def populate_users(N, first_names, last_names, cities, ratio_match):
 				checked_emails[email] = 1
 				get_name = 0
 
-		User.objects.create(email = email, password = passwrd, first_name = first_name, last_name = last_name, want_to_be_matched = want_to_be_matched)
+		if want_to_be_matched==1:
+			User.objects.create(email = email, password = passwrd, first_name = first_name, last_name = last_name, Collaborator = True)
+		else:
+			User.objects.create(email = email, password = passwrd, first_name = first_name, last_name = last_name, Ideamaker = True)
 
 
 def populate_passions(M):
-	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
+	users = User.objects.filter(Collaborator = True, is_staff = False)
 	skills_db = Skills.objects.all()
 
 	for usr in users:
@@ -75,7 +78,7 @@ def populate_passions(M):
 			Passions.objects.create(user=usr, passion=passion)
 
 def populate_assigned_skills(M):
-	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
+	users = User.objects.filter(Collaborator = True, is_staff = False)
 	skills_db = Skills.objects.all()
 
 	for usr in users:
@@ -85,7 +88,7 @@ def populate_assigned_skills(M):
 			Assigned_Skills.objects.create(user=usr, assigned_skill=Assigned_Skill)
 
 def populate_business_experience(M):
-	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
+	users = User.objects.filter(Collaborator = True, is_staff = False)
 	skills_db = Skills.objects.all()
 
 	for usr in users:
@@ -95,7 +98,7 @@ def populate_business_experience(M):
 			Business_Experience.objects.create(user=usr, experience=experience)
 
 def populate_up_for(M):
-	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
+	users = User.objects.filter(Collaborator = True, is_staff = False)
 	skills_db = Skills.objects.all()
 
 	for usr in users:
@@ -115,7 +118,7 @@ def populate_collaborator_fields(M):
 # create collaborations
 def populate_mockup_collaboration(cities, colab_data):
 
-	colab_users = User.objects.filter(want_to_be_matched = 0, is_staff = False)
+	colab_users = User.objects.filter(Ideamaker = True, is_staff = False)
 
 	colabs = [] 
 

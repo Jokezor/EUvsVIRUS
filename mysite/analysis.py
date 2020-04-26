@@ -100,8 +100,20 @@ def up_for_score(W, colabs, users):
 			if not Up_For_Matched.objects.filter(user=usr, colab=colab).exists():
 				Up_For_Matched.objects.create(user=usr, colab=colab, score=score, weight=W)
 
-#def total_score(colabs):
-#	for colab in colabs:
+
+def sum_score(colabs, users):
+
+	for colab in colabs:
+		for usr in users:
+			passion_score = Passion_Matched.objects.filter(user=usr, colab=colab)[0].score
+			assigned_skill_score = Assigned_Skills_Matched.objects.filter(user=usr, colab=colab)[0].score
+			business_experience_score = Business_Experience_Matched.objects.filter(user=usr, colab=colab)[0].score
+			up_for_score = Up_For_Matched.objects.filter(user=usr, colab=colab)[0].score
+
+			tot_score = passion_score + assigned_skill_score + business_experience_score + up_for_score
+
+			if not Matched.objects.filter(user=usr, colab=colab).exists():
+				Matched.objects.create(user=usr, colab=colab, score=tot_score)
 
 
 # Scoring mechanism for collaborations to users
@@ -113,15 +125,39 @@ def score():
 	colabs = Collaboration.objects.all()
 
 	# Same for users
-	users = User.objects.filter(want_to_be_matched = 1, is_staff = False)
+	users = User.objects.filter(Collaborator = True, is_staff = False)
 
+	# If duplicate then does nothing atm.
 
+	# Scores in each category
 	passion_score(W['Passion'], colabs, users)
 	assigned_skills_score(W['Assigned_Skills'], colabs, users)
 	business_experience_score(W['Business_Experience'], colabs, users)
 	up_for_score(W['Up_For'], colabs, users)
 
-	# check all scores
+	# Combine all scores
+	sum_score(colabs, users)
+
+
+def sort_users_score():
+
+	colabs = Collaboration.objects.all()
+
+	for colab in colabs:
+		print("\nMatches: ")
+		match_objects = Matched.objects.filter(colab=colab).order_by('-score')
+		for match_object in match_objects:
+			print(match_object.user, ': ', match_object.score)
+
+
+
+
+
+
+
+
+
+
 
 
 
